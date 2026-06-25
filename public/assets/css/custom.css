@@ -1,0 +1,27 @@
+.password-policy li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    transition:all .35s ease;
+}
+
+.password-policy li i{
+    width:18px;
+    height:18px;
+    transition:all .35s ease;
+}
+
+.password-policy li.valid{
+    color:#198754;
+    transform:translateX(6px);
+}
+
+.password-policy li.valid i{
+    color:#198754;
+    transform:scale(1.25) rotate(360deg);
+}
+
+.password-policy li.invalid{
+    color:#6c757d;
+}

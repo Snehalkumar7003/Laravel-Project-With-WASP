@@ -1,0 +1,174 @@
+# ----------------------------------------
+# Laravel
+# ----------------------------------------
+
+/vendor
+/node_modules
+/public/build
+/public/hot
+/storage/*.key
+
+# ----------------------------------------
+# Environment Files
+# ----------------------------------------
+
+.env
+.env.*
+!.env.example
+
+# ----------------------------------------
+# Composer
+# ----------------------------------------
+
+/composer.phar
+
+# ----------------------------------------
+# NPM
+# ----------------------------------------
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ----------------------------------------
+# IDE
+# ----------------------------------------
+
+.idea/
+/.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# ----------------------------------------
+# OS Files
+# ----------------------------------------
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----------------------------------------
+# PHPUnit
+# ----------------------------------------
+
+.phpunit.cache
+.phpunit.result.cache
+
+# ----------------------------------------
+# Laravel Cache
+# ----------------------------------------
+
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitignore
+
+# ----------------------------------------
+# Storage
+# ----------------------------------------
+
+/storage/app/*
+!/storage/app/.gitignore
+
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+
+/storage/logs/*
+!/storage/logs/.gitignore
+
+# ----------------------------------------
+# Uploaded Files
+# ----------------------------------------
+
+/public/uploads/*
+!/public/uploads/.gitignore
+
+# ----------------------------------------
+# RSA Keys (VERY IMPORTANT)
+# ----------------------------------------
+
+/storage/keys/private.pem
+/storage/keys/public.pem
+/storage/keys/*.pem
+/storage/keys/*.key
+
+# ----------------------------------------
+# Backup Files
+# ----------------------------------------
+
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+*.swp
+
+# ----------------------------------------
+# Archives
+# ----------------------------------------
+
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# ----------------------------------------
+# Database
+# ----------------------------------------
+
+*.sqlite
+
+# ----------------------------------------
+# Testing
+# ----------------------------------------
+
+/coverage
+/.phpunit.cache
+
+# ----------------------------------------
+# Laravel Pint
+# ----------------------------------------
+
+.pint.cache
+
+# ----------------------------------------
+# Rector
+# ----------------------------------------
+
+/rector.php.cache
+
+# ----------------------------------------
+# PHPStan
+# ----------------------------------------
+
+/phpstan.neon.cache
+
+# ----------------------------------------
+# Pest
+# ----------------------------------------
+
+.pest.cache
+
+# ----------------------------------------
+# Laravel Sail
+# ----------------------------------------
+
+.docker
+docker-compose.override.yml
+
+# ----------------------------------------
+# Temporary Files
+# ----------------------------------------
+
+*.log
+*.cache
+*.pid
