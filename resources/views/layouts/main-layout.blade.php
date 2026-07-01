@@ -23,22 +23,18 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('assets/css/theme.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <style>
-      .app-header{
-        position:static
-      }
-      
-    </style>
 </head>
 
 
-<body class="bg-slate-50">
-    @include('partials.verification-header')
-    
-    @yield('content')
+<body>
+    @include('partials.sidebar')
+    @include('partials.header')
+    @include('partials.theme-setting')
+    <main class="app-main space-y-6">
+        @yield('content')
+    </main>
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/lucide.min.js') }}"></script>
@@ -56,7 +52,7 @@
             }
         });
     </script>
-    {{-- Page specific JS --}}
+     {{-- Page specific JS --}}
     @stack('scripts')
 </body>
 </html>

@@ -22,7 +22,7 @@ class SessionSecurityMiddleware
         if (!session('is_logged_in')) {
             return redirect()
                 ->route('login')
-                ->with('error','Please login to continue.');
+                ->with('success','Please login to continue.');
         }
 
         /*

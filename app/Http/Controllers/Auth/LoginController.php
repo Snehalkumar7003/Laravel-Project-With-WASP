@@ -196,75 +196,90 @@ class LoginController extends Controller{
         try {
             /*
             |--------------------------------------------------------------------------
-            | Get Logged In User
+            | Pending Login (Before OTP Verification)
             |--------------------------------------------------------------------------
             */
-            $user = MstUserModel::find(
-                session('user_id')
-            );
+            if (session()->has('pending_login')) {
+                $user = MstUserModel::find(session('pending_user_id'));
+                if ($user) {
 
-            /*
-            |--------------------------------------------------------------------------
-            | Audit Log
-            |--------------------------------------------------------------------------
-            */
-            if ($user) {
-                TblLogModel::create([
-                    'module'       => 'AUTH',
-                    'module_id'    => $user->mst_users_id,
-                    'mst_users_id' => $user->mst_users_id,
-                    'action'       => 'LOGOUT',
-                    'ip_address'   => $request->ip(),
-                    'remarks'      => 'User logged out successfully'
-                ]);
-
-                /*
-                |--------------------------------------------------------------------------
-                | Remove Active Session Information
-                |--------------------------------------------------------------------------
-                */
-                $user->session_id = null;
-                $user->device_fingerprint = null;
-                $user->last_ip_address = null;
-                $user->last_user_agent = null;
-                $user->save();
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Clear OTP Information
+                    |--------------------------------------------------------------------------
+                    */
+                    $user->otp = null;
+                    $user->otp_expiry = null;
+                    $user->otp_attempts = 0;
+                    $user->otp_last_sent_at = null;
+                    $user->otp_resend_count = 0;
+                    $user->save();
+                    TblLogModel::create([
+                        'module'       => 'AUTH',
+                        'module_id'    => $user->mst_users_id,
+                        'mst_users_id' => $user->mst_users_id,
+                        'action'       => 'OTP_LOGOUT',
+                        'ip_address'   => $request->ip(),
+                        'remarks'      => 'User logged out before OTP verification.'
+                    ]);
+                }
             }
 
             /*
             |--------------------------------------------------------------------------
-            | Delete Current Session From Database
+            | Logged In User
+            |--------------------------------------------------------------------------
+            */
+            elseif (session()->has('user_id')) {
+                $user = MstUserModel::find(session('user_id'));
+                if ($user) {
+                    TblLogModel::create([
+                        'module'       => 'AUTH',
+                        'module_id'    => $user->mst_users_id,
+                        'mst_users_id' => $user->mst_users_id,
+                        'action'       => 'LOGOUT',
+                        'ip_address'   => $request->ip(),
+                        'remarks'      => 'User logged out successfully.'
+                    ]);
+                    $user->session_id = null;
+                    $user->device_fingerprint = null;
+                    $user->last_ip_address = null;
+                    $user->last_user_agent = null;
+                    $user->save();
+                }
+            }
+            /*
+            |--------------------------------------------------------------------------
+            | Remove Session Record
             |--------------------------------------------------------------------------
             */
             DB::table('sessions')
-                ->where('id', $request->session()->getId())
+                ->where(
+                    'id',
+                    $request->session()->getId()
+                )
                 ->delete();
-
             /*
             |--------------------------------------------------------------------------
             | Destroy Session
             |--------------------------------------------------------------------------
             */
             $request->session()->invalidate();
-
             $request->session()->regenerateToken();
-
             return redirect()
                 ->route('login')
                 ->with(
                     'success',
                     'You have been logged out successfully.'
                 );
-
-        } catch (Exception $e) {
-
-            Log::error('Logout Error : ' .$e->getMessage());
+        }catch (Exception $e) {
+            Log::error('Logout Error : '.$e->getMessage());
             return redirect()
                 ->route('login')
                 ->with(
                     'error',
-                    'Unable to logout. Please try again.'
+                    'Unable to logout.'
                 );
         }
-
     }
 }

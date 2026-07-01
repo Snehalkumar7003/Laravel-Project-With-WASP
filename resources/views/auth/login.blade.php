@@ -8,7 +8,7 @@
     <div class="flex-grow-1 d-flex align-items-center justify-content-center p-4 p-md-5 bg-white">
         <div class="w-100 max-w-420">
             @if(session('error'))
-            <div class="flex items-start gap-3 p-4 rounded-xl text-sm bg-red-50 border border-red-200 text-red-800 mb-3">
+            <div class="flex items-start gap-3 p-4 rounded-xl text-sm bg-red-50 border border-red-200 text-red-800 mb-2">
                 <i data-lucide="x-circle" class="lucide-md shrink-0 mt-0-5 text-red-500"></i>
 
                 <div class="flex-1 min-w-0">
@@ -22,6 +22,21 @@
                     type="button"
                     onclick="this.parentElement.remove();"
                     class="shrink-0 opacity-50 p-0-5 rounded bg-transparent border-0">
+                    <i data-lucide="x" class="lucide-sm"></i>
+                </button>
+            </div>
+            @endif
+            @if(session('success'))
+            <div class="flex items-start gap-3 p-4 rounded-xl text-sm bg-emerald-50 border border-emerald-200 text-emerald-800 mb-2">
+                <i data-lucide="check-circle" class="lucide-md shrink-0 mt-0-5 text-emerald-500"></i>
+                <div class="flex-1 min-w-0">
+                    <p class="font-semibold mb-0-5">
+                        Success...!!!
+                    </p>
+                        {{ session('success') }}
+                    </p>
+                </div>
+                <button type="button" onclick="this.parentElement.remove();" class="shrink-0 opacity-50 p-0-5 rounded bg-transparent border-0">
                     <i data-lucide="x" class="lucide-sm"></i>
                 </button>
             </div>
@@ -96,5 +111,5 @@
 @endsection
 
 @push('scripts')
-
+<script src="{{ asset('assets/plugins/js/auth/login.js') }}"></script>
 @endpush

@@ -6,7 +6,7 @@
     <button class="header-icon-btn" data-toggle-dark aria-label="Dark"><i data-lucide="moon" class="lucide-md"></i></button>
     <div class="dropdown">
         <button class="user-button" data-bs-toggle="dropdown">
-            <div class="avatar avatar-sm">{{ strtoupper(substr(session('username'), 0, 1)) }}</div>
+            <div class="avatar avatar-sm">{{ strtoupper(substr(session('username'), 0, 2)) }}</div>
             <div class="d-none d-sm-block text-start">
             <div class="user-name">{{session('username')}}</div>
             <div class="user-role">{{session('role_name')}}</div>

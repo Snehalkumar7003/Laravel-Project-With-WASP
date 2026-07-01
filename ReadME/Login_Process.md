@@ -27,7 +27,7 @@ Authentication uses:
 ---
 
 # Authentication Workflow/Security Architecture
-
+```text
 User
  │
  ▼
@@ -149,12 +149,12 @@ Success?
         ▼
 Update Log → FAILED
 Store Exception Message
-
+```
 
 ---
 
 # Login Structure
-
+```text
 app/
 ├── Http/
 │   ├── Controllers/   
@@ -200,7 +200,7 @@ storage/
 
 # Public Assets Structure
 
-
+```text
 public/
 │
 ├── assets/
@@ -232,7 +232,7 @@ public/
 
 # RSA Key Structure
 
-
+```text
 storage/
 │
 └── keys/
@@ -261,13 +261,13 @@ openssl rsa -in storage/keys/private.pem -pubout -out storage/keys/public.pem
 
 ## NEVER expose
 
-
+```text
 storage/keys/private.pem
 ```
 
 ## ONLY expose
 
-
+```text
 storage/keys/public.pem
 ```
 
@@ -279,19 +279,19 @@ Private key must never be accessible through browser.
 
 User accesses:
 
-
+```text
 /login
 ```
 
 System loads:
 
-
+```text
 login.blade.php
 ```
 
 Resources loaded:
 
-
+```text
 Bootstrap 5
 jQuery
 jQuery Validation
@@ -306,7 +306,7 @@ login.js
 
 Frontend requests:
 
-
+```text
 /auth/public-key
 ```
 
@@ -320,7 +320,7 @@ Response:
 
 Purpose:
 
-
+```text
 Encrypt sensitive information before transmission.
 ```
 
@@ -330,7 +330,7 @@ Encrypt sensitive information before transmission.
 
 Before submission:
 
-
+```text
 Email Required
 Email Format Validation
 Password Required
@@ -338,7 +338,7 @@ Password Required
 
 Validation Library:
 
-
+```text
 jQuery Validation
 ```
 
@@ -348,7 +348,7 @@ jQuery Validation
 
 Sensitive fields:
 
-
+```text
 username
 password
 ```
@@ -399,7 +399,7 @@ Payload:
 
 Laravel validates:
 
-
+```text
 CSRF Token
 Session
 Request Origin
@@ -420,7 +420,7 @@ Failure Response:
 
 Backend service:
 
-
+```text
 RSAService.php
 ```
 
@@ -434,7 +434,7 @@ RSAService::decrypt($request->password);
 
 Private Key:
 
-
+```text
 storage/keys/private.pem
 ```
 
@@ -444,7 +444,7 @@ storage/keys/private.pem
 
 Validation Rules:
 
-
+```text
 Email Required
 Valid Email Format
 Password Required
@@ -464,20 +464,20 @@ password => required
 
 Table:
 
-
+```text
 tbl_login_attempts
 ```
 
 Query:
 
-
+```text
 Count failed attempts
 within previous 1 hour
 ```
 
 Rules:
 
-
+```text
 Maximum Attempts : 3
 Lock Duration    : 1 Hour
 ```
@@ -497,13 +497,13 @@ Failure Response:
 
 Table:
 
-
+```text
 mst_users
 ```
 
 Conditions:
 
-
+```text
 is_active = 1
 is_delete = 0
 email exists
@@ -524,7 +524,7 @@ Failure:
 
 Password Storage:
 
-
+```text
 Bcrypt Hash
 ```
 
@@ -536,7 +536,7 @@ Hash::check()
 
 Failure Actions:
 
-
+```text
 Record Failed Attempt
 Write Audit Log
 Increase Lock Counter
@@ -544,7 +544,7 @@ Increase Lock Counter
 
 Table:
 
-
+```text
 tbl_login_attempts
 ```
 
@@ -563,13 +563,13 @@ timestamp
 
 Record Success:
 
-
+```text
 tbl_login_attempts
 ```
 
 Data:
 
-
+```text
 username
 ip_address
 is_success = 1
@@ -592,7 +592,7 @@ $request->session()->regenerate();
 
 Purpose:
 
-
+```text
 Prevent Session Fixation Attacks
 ```
 
@@ -602,7 +602,7 @@ Prevent Session Fixation Attacks
 
 Session Variables:
 
-
+```text
 user_id
 username
 email
@@ -628,19 +628,19 @@ session([
 
 Table:
 
-
+```text
 mst_users
 ```
 
 Column:
 
-
+```text
 last_login
 ```
 
 Purpose:
 
-
+```text
 Track user activity
 ```
 
@@ -650,19 +650,19 @@ Track user activity
 
 Table:
 
-
+```text
 tbl_logs
 ```
 
 Event:
 
-
+```text
 LOGIN
 ```
 
 Stored Information:
 
-
+```text
 User ID
 IP Address
 Action
@@ -672,7 +672,7 @@ Remarks
 
 Example:
 
-
+```text
 AUTH
 LOGIN
 Login successful
@@ -744,7 +744,7 @@ tbl_email_logs
 
 # Default Credentials
 
-
+```text
 Email    : admin@admin.com
 Password : Admin@123
 Role     : Super Admin

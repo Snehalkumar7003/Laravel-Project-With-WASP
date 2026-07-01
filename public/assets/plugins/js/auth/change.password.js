@@ -267,7 +267,7 @@ $(document).ready(function () {
                 });
             } catch (e) {
                 console.error(error);
-                 $("#loginAlert").removeClass("d-none").html(`
+                 alertBox.removeClass("d-none").html(`
                     <div class="flex items-start gap-3 p-4 rounded-xl text-sm bg-red-50 border border-red-200 text-red-800">
                         <i data-lucide="x-circle" class="lucide-md shrink-0 mt-0-5 text-red-500"></i>
 

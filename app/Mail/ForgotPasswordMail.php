@@ -1,54 +1,23 @@
 <?php
-
 namespace App\Mail;
-
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Attachment;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
-
-class ForgotPasswordMail extends Mailable
-{
-    use Queueable, SerializesModels;
-
+class ForgotPasswordMail extends BaseMail{
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Forgot Password Mail',
+    public function __construct(object $user,string $token) {
+        parent::__construct(
+            subject: 'Reset Your Password',
+            view: 'emails.forgot-password',
+            data: [
+                'title' => 'Forgot Password',
+                'user' => $user,
+                'resetLink' => route(
+                    'reset-password',
+                    ['token' => $token]
+                ),
+                'expiry' => 10,
+                'application' => config('app.name')
+            ]
         );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

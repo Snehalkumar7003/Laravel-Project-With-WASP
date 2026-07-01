@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'session.security' => \App\Http\Middleware\Security\SessionSecurityMiddleware::class,
             'otp' => \App\Http\Middleware\Security\OtpMiddleware::class,
-                
+            'no.cache' => \App\Http\Middleware\Security\NoCacheMiddleware::class,                
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

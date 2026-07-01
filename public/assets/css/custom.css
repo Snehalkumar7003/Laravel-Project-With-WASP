@@ -25,3 +25,18 @@
 .password-policy li.invalid{
     color:#6c757d;
 }
+
+/* Readonly input */
+.form-control:read-only,
+.form-select:disabled {
+    background-color: #f8f9fa;
+    color: #495057;
+    border-color: #ced4da;
+    cursor: not-allowed;
+    opacity: 1; /* Prevent Bootstrap from fading it */
+}
+
+/* Placeholder color */
+.form-control:read-only::placeholder {
+    color: #6c757d;
+}

@@ -52,6 +52,6 @@
 </div>
 @endsection
 @push('scripts')
-
+<script src="{{ asset('assets/plugins/js/auth/otp.js') }}"></script>
 @endpush
 

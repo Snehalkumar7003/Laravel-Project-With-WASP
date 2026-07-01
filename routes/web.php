@@ -19,13 +19,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('guest')->group(function () {
+    
+    // login
     Route::get('/', [LoginController::class, 'index'])
         ->name('login');
     Route::post('/auth/validate-login', [LoginController::class, 'validateLogin'])
         ->name('validate-login');
+
+    //public key        
+    Route::get('/auth/public-key', [LoginController::class, 'publicKey']);
+
+    // Forgot Password
     Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])
         ->name('forgot-password');
-    Route::get('/auth/public-key', [LoginController::class, 'publicKey']);
+    Route::post('/forgot-password', [ForgotPasswordController::class,'sendLink'])
+    ->name('forgot-password.send');
+    Route::get('/reset-password/{token}', [ForgotPasswordController::class,'resetForm'])
+        ->name('reset-password');
+    Route::post('/reset-password', [ForgotPasswordController::class,'reset'])
+        ->name('reset-password.update');
 
 });
 /*
@@ -37,7 +49,7 @@ Route::middleware('guest')->group(function () {
 |
 */
 
-Route::middleware('otp')->group(function () {
+Route::middleware(['otp','no.cache'])->group(function () {
     Route::get('/otp', [OtpController::class, 'index'])
         ->name('otp.index');
     Route::post('/otp/verify', [OtpController::class, 'verify'])
@@ -57,7 +69,7 @@ Route::middleware('otp')->group(function () {
 */
 
 Route::prefix('app')
-    ->middleware('session.security')
+    ->middleware(['session.security','no.cache'])
     ->group(function () {
 
         /*
@@ -87,11 +99,7 @@ Route::prefix('app')
 | Logout
 |--------------------------------------------------------------------------
 */
-Route::middleware(['otp', 'session.security'])->post('/logout', [
-    LoginController::class,
-    'logout'
-])->name('logout');
-
+Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------

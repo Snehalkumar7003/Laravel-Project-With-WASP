@@ -23,7 +23,7 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('assets/css/theme.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/app.js') }}"></script>
 </head>
 
@@ -41,6 +41,6 @@
     <script src="{{ asset('assets/plugins/js/config/app.config.js') }}"></script>
     <script src="{{ asset('assets/plugins/js/security/security.js') }}"></script>
     <script src="{{ asset('assets/plugins/js/security/device-fingerprint.js') }}"></script>
-    <script src="{{ asset('assets/plugins/js/auth/login.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

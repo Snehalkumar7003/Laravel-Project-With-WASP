@@ -39,7 +39,7 @@
 */
 const OTP_LENGTH = 6;
 
-const OTP_TIMER = 5;
+const OTP_TIMER = 300;
 
 let timer = OTP_TIMER;
 
