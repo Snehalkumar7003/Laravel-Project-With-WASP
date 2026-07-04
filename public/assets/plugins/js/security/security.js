@@ -105,21 +105,15 @@ class SecurityManager {
     |
     */
     static async encrypt(data) {
-
         const publicKey = await this.loadPublicKey();
-
         if (!publicKey) {
-
             throw new Error("Public key not loaded");
         }
 
         //console.log("csrf-token-hash:::"+publicKey.csrf_token);
         // APP_CONFIG.setCSRFHash(publicKey.csrf_token);
-
         const encrypt = new JSEncrypt();
-
         encrypt.setPublicKey(publicKey.public_key);
-
         return encrypt.encrypt(data);
     }
 
@@ -139,15 +133,10 @@ class SecurityManager {
     |
     */
     static async encryptForm(formData) {
-
         let encryptedData = {};
-
         for (const key in formData) {
-
-            encryptedData[key] =
-                await this.encrypt(formData[key]);
+            encryptedData[key] = await this.encrypt(formData[key]);
         }
-
         return encryptedData;
     }
 
@@ -167,22 +156,45 @@ class SecurityManager {
     |        data-encrypt="true">
     |
     */
+    // static async encryptFormBySelector(formSelector) {
+    //     // console.log("encryptFormBySelector");
+    //     let encryptedData = {};
+
+    //     const fields = $(formSelector)
+    //         .find("[data-encrypt='true']");
+
+    //     for (let i = 0; i < fields.length; i++) {
+
+    //         const field = $(fields[i]);
+    //         // console.log(field.attr("name"));
+    //         // console.log(field.val());
+    //         encryptedData[field.attr("name")] =
+    //             await this.encrypt(field.val());
+    //     }
+
+    //     return encryptedData;
+    // }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Encrypt Form By Selector
+    |--------------------------------------------------------------------------
+    |
+    | Returns FormData with encrypted fields.
+    |
+    */
+
     static async encryptFormBySelector(formSelector) {
-        // console.log("encryptFormBySelector");
-        let encryptedData = {};
-
-        const fields = $(formSelector)
-            .find("[data-encrypt='true']");
-
+        const form = $(formSelector)[0];
+        let formData = new FormData(form);
+        const fields = $(formSelector).find("[data-encrypt='true']");
+        
         for (let i = 0; i < fields.length; i++) {
-
             const field = $(fields[i]);
-            // console.log(field.attr("name"));
-            // console.log(field.val());
-            encryptedData[field.attr("name")] =
-                await this.encrypt(field.val());
+            const name = field.attr("name");
+            const encryptedValue = await this.encrypt(field.val());
+            formData.set(name, encryptedValue);
         }
-
-        return encryptedData;
+        return formData;
     }
 }

@@ -55,7 +55,13 @@
   <button class="header-icon-btn" data-toggle-settings aria-label="Settings"><i data-lucide="settings" class="lucide-md"></i></button>
   <div class="dropdown">
     <button class="user-button" data-bs-toggle="dropdown">
-      <div class="avatar avatar-sm">{{ strtoupper(substr(session('username'), 0, 2)) }}</div>
+      <div class="avatar avatar-sm">
+        @if (session('profile_photo')!='')        
+          <img src="{{ asset('uploads/profile/' . session('profile_photo')) }}" alt="User Profile">
+        @else
+          {{ strtoupper(substr(session('username'), 0, 2)) }}
+        @endif
+      </div>
       <div class="d-none d-sm-block text-start">
         <div class="user-name">{{session('username')}}</div>
         <div class="user-role">{{session('role_name')}}</div>
@@ -67,9 +73,9 @@
         <div class="fw-semibold">{{session('username')}}</div>
         <div class="text-muted small">{{ session('email') }}</div>
       </div>
-      <a class="dropdown-item user-menu-item" href="account.html"><i data-lucide="user" class="lucide-sm"></i> My Profile</a>
-      <a class="dropdown-item user-menu-item" href="account.html"><i data-lucide="shield" class="lucide-sm"></i> Security</a>
-      <a class="dropdown-item user-menu-item" href="faq.html"><i data-lucide="help-circle" class="lucide-sm"></i> Help Center</a>
+      <a class="dropdown-item user-menu-item" href="{{ route('profile') }}"><i data-lucide="user" class="lucide-sm"></i> My Profile</a>
+      <a class="dropdown-item user-menu-item" href="{{ route('profile') }}"><i data-lucide="shield" class="lucide-sm"></i> Security</a>
+      <a class="dropdown-item user-menu-item" href=""><i data-lucide="help-circle" class="lucide-sm"></i> Help Center</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item user-menu-item text-danger" href="{{ route('logout') }}"><i data-lucide="log-out" class="lucide-sm"></i> Sign Out</a>
     </div>

@@ -1,6 +1,6 @@
 <aside class="app-sidebar" data-sidebar>
-  <a href="dashboard.html" class="sidebar-brand text-decoration-none">
-    <img src="img/logo.svg" alt="Liner" class="brand-logo-lg-img" />
+  <a href="{{ route('main-dashboard') }}" class="sidebar-brand text-decoration-none">
+    <img src="{{ asset('assets/img/logo.svg') }}" alt="Liner" class="brand-logo-lg-img" />
     <div class="brand-text">
       <div class="brand-name">Liner</div>
       <div class="brand-sub">Admin</div>
@@ -8,29 +8,16 @@
   </a>
   <nav class="sidebar-nav custom-scrollbar">
     <div class="sidebar-group-title">Dashboards</div>
-    <a
-      href="dashboard.html"
-      class="sidebar-nav-link"
-      data-path="dashboard.html"
-    >
-      <i data-lucide="layout-dashboard" class="lucide-md"></i
-      ><span class="link-label">Modern</span>
+    <a href="{{ route('main-dashboard') }}" class="sidebar-nav-link" data-path="{{ route('main-dashboard') }}">
+      <i data-lucide="layout-dashboard" class="lucide-md"></i><span class="link-label">Modern</span>
     </a>
-    <a
-      href="analytics.html"
-      class="sidebar-nav-link"
-      data-path="analytics.html"
-    >
-      <i data-lucide="activity" class="lucide-md"></i
-      ><span class="link-label">Analytics</span> </a
-    ><a
-      href="ecommerce.html"
-      class="sidebar-nav-link"
-      data-path="ecommerce.html"
-    >
-      <i data-lucide="shopping-cart" class="lucide-md"></i
-      ><span class="link-label">eCommerce</span> </a
-    ><a href="music.html" class="sidebar-nav-link" data-path="music.html">
+    <a href="analytics.html" class="sidebar-nav-link" data-path="analytics.html" >
+      <i data-lucide="activity" class="lucide-md"></i><span class="link-label">Analytics</span> 
+    </a>
+    <a href="ecommerce.html" class="sidebar-nav-link" data-path="ecommerce.html">
+      <i data-lucide="shopping-cart" class="lucide-md"></i><span class="link-label">eCommerce</span> 
+    </a>
+    <a href="music.html" class="sidebar-nav-link" data-path="music.html">
       <i data-lucide="music" class="lucide-md"></i
       ><span class="link-label">Music</span> </a
     ><a href="general.html" class="sidebar-nav-link" data-path="general.html">

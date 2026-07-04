@@ -1917,7 +1917,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 /* ===== Page: form-layouts ===== */
-if (window.LINER_PAGE === 'form-layouts.html') {
+if (window.LINER_PAGE === '/app/profile') {
 document.addEventListener('DOMContentLoaded', () => {
   // Avatar upload
   const avatar = document.querySelector('[data-fl-avatar]');
@@ -3557,81 +3557,81 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 /* ===== Page: account ===== */
-if (window.LINER_PAGE === 'account.html') {
-document.addEventListener('DOMContentLoaded', () => {
-  // Tabs
-  document.querySelectorAll('.acc-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.acc-tab').forEach(b => b.classList.remove('acc-tab-active'));
-      btn.classList.add('acc-tab-active');
-      const tab = btn.dataset.tab;
-      document.querySelectorAll('.acc-pane').forEach(p => p.classList.toggle('hidden', p.dataset.pane !== tab));
+console.log('Account page JS loaded'+window.LINER_PAGE);
+if (window.LINER_PAGE === '/app/profile') {
+  document.addEventListener('DOMContentLoaded', () => {
+    // Tabs
+    document.querySelectorAll('.acc-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.acc-tab').forEach(b => b.classList.remove('acc-tab-active'));
+        btn.classList.add('acc-tab-active');
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.acc-pane').forEach(p => p.classList.toggle('hidden', p.dataset.pane !== tab));
+      });
     });
-  });
-  // Toggles (connected accounts, notifications, 2FA)
-  document.querySelectorAll('.acc-toggle').forEach(t => {
-    t.addEventListener('click', () => t.classList.toggle('acc-toggle-on'));
-  });
-  // 2FA status panel
-  const tfa = document.getElementById('acc-2fa-toggle');
-  tfa?.addEventListener('click', () => {
-    const on = tfa.classList.contains('acc-toggle-on');
-    const status = document.getElementById('acc-2fa-status');
-    const extras = document.getElementById('acc-2fa-extras');
-    if (on) {
-      status.className = 'p-4 rounded-xl border bg-emerald-50 border-emerald-200';
-      status.innerHTML = '<div class="flex items-center gap-2-5"><i data-lucide="check-circle" class="lucide-sm text-emerald-500"></i><p class="text-sm text-emerald-700 font-medium m-0">Two-factor authentication is enabled. Your account is well protected.</p></div>';
-      extras.classList.remove('hidden');
-    } else {
-      status.className = 'p-4 rounded-xl border bg-slate-50 border-slate-200';
-      status.innerHTML = '<p class="text-sm text-slate-600 m-0">Enable 2FA to protect your account with an authenticator app like Google Authenticator or Authy.</p>';
-      extras.classList.add('hidden');
-    }
-    window.lucide && lucide.createIcons();
-  });
-  // Password toggles
-  document.querySelectorAll('.acc-pwd-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const input = btn.parentElement.querySelector('input');
-      const show = input.type === 'password';
-      input.type = show ? 'text' : 'password';
-      btn.querySelector('[data-lucide]').setAttribute('data-lucide', show ? 'eye-off' : 'eye');
+    // Toggles (connected accounts, notifications, 2FA)
+    document.querySelectorAll('.acc-toggle').forEach(t => {
+      t.addEventListener('click', () => t.classList.toggle('acc-toggle-on'));
+    });
+    // 2FA status panel
+    const tfa = document.getElementById('acc-2fa-toggle');
+    tfa?.addEventListener('click', () => {
+      const on = tfa.classList.contains('acc-toggle-on');
+      const status = document.getElementById('acc-2fa-status');
+      const extras = document.getElementById('acc-2fa-extras');
+      if (on) {
+        status.className = 'p-4 rounded-xl border bg-emerald-50 border-emerald-200';
+        status.innerHTML = '<div class="flex items-center gap-2-5"><i data-lucide="check-circle" class="lucide-sm text-emerald-500"></i><p class="text-sm text-emerald-700 font-medium m-0">Two-factor authentication is enabled. Your account is well protected.</p></div>';
+        extras.classList.remove('hidden');
+      } else {
+        status.className = 'p-4 rounded-xl border bg-slate-50 border-slate-200';
+        status.innerHTML = '<p class="text-sm text-slate-600 m-0">Enable 2FA to protect your account with an authenticator app like Google Authenticator or Authy.</p>';
+        extras.classList.add('hidden');
+      }
       window.lucide && lucide.createIcons();
     });
-  });
-  // Password strength
-  const npwd = document.getElementById('acc-new-pwd');
-  const strBox = document.getElementById('acc-strength');
-  const strLbl = document.getElementById('acc-strength-label');
-  npwd?.addEventListener('input', e => {
-    const v = e.target.value;
-    let s = 0;
-    if (v.length >= 8) s++;
-    if (/[A-Z]/.test(v)) s++;
-    if (/[0-9]/.test(v)) s++;
-    if (/[^A-Za-z0-9]/.test(v)) s++;
-    if (s === 0) { strBox.classList.add('hidden'); return; }
-    strBox.classList.remove('hidden');
-    const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
-    const colors = ['', '#ef4444', '#f59e0b', '#facc15', '#10b981'];
-    const texts = ['', 'text-red-500', 'text-amber-500', 'text-yellow-500', 'text-emerald-500'];
-    strLbl.className = 'text-xs font-semibold ' + texts[s];
-    strLbl.textContent = labels[s];
-    document.querySelectorAll('.acc-strength-bar').forEach((bar, i) => {
-      bar.style.background = i < s ? colors[s] : '#e2e8f0';
+    // Password toggles
+    document.querySelectorAll('.acc-pwd-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = btn.parentElement.querySelector('input');
+        const show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        btn.querySelector('[data-lucide]').setAttribute('data-lucide', show ? 'eye-off' : 'eye');
+        window.lucide && lucide.createIcons();
+      });
     });
-  });
-  // Frequency
-  document.querySelectorAll('.acc-freq-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.acc-freq-btn').forEach(x => x.classList.remove('acc-freq-active'));
-      b.classList.add('acc-freq-active');
+    // Password strength
+    const npwd = document.getElementById('acc-new-pwd');
+    const strBox = document.getElementById('acc-strength');
+    const strLbl = document.getElementById('acc-strength-label');
+    npwd?.addEventListener('input', e => {
+      const v = e.target.value;
+      let s = 0;
+      if (v.length >= 8) s++;
+      if (/[A-Z]/.test(v)) s++;
+      if (/[0-9]/.test(v)) s++;
+      if (/[^A-Za-z0-9]/.test(v)) s++;
+      if (s === 0) { strBox.classList.add('hidden'); return; }
+      strBox.classList.remove('hidden');
+      const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+      const colors = ['', '#ef4444', '#f59e0b', '#facc15', '#10b981'];
+      const texts = ['', 'text-red-500', 'text-amber-500', 'text-yellow-500', 'text-emerald-500'];
+      strLbl.className = 'text-xs font-semibold ' + texts[s];
+      strLbl.textContent = labels[s];
+      document.querySelectorAll('.acc-strength-bar').forEach((bar, i) => {
+        bar.style.background = i < s ? colors[s] : '#e2e8f0';
+      });
     });
+    // Frequency
+    document.querySelectorAll('.acc-freq-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.acc-freq-btn').forEach(x => x.classList.remove('acc-freq-active'));
+        b.classList.add('acc-freq-active');
+      });
+    });
+
+    window.lucide && lucide.createIcons();
   });
-
-  window.lucide && lucide.createIcons();
-});
-
 }
 
 /* ===== Page: user-profile (markup inline) ===== */

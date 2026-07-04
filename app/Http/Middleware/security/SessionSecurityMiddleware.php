@@ -30,9 +30,7 @@ class SessionSecurityMiddleware
         | User Not Found
         |--------------------------------------------------------------------------
         */
-        $user = MstUserModel::find(
-            session('user_id')
-        );
+        $user = MstUserModel::find(session('user_id'));
 
         if (!$user) {
             $request->session()->invalidate();
@@ -141,7 +139,8 @@ class SessionSecurityMiddleware
         | Rotate Session Every Request
         |--------------------------------------------------------------------------
         */
-        $request->session()->migrate(true);
+        // $request->session()->migrate(true);
+        // $request->session()->regenerateToken();
         
         return $next($request);
     }

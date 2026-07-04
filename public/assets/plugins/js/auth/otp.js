@@ -70,9 +70,7 @@ $(function () {
             let submitBtn = $("#otp-submit");
             let btnText = $("#otp-btn-text");
             submitBtn.prop("disabled", true);
-            btnText.text(
-                "Verifying..."
-            );        
+            btnText.text("Verifying...");        
             let formData = new FormData(form);
             formData.append('device_fingerprint', DeviceFingerprint.generate());
             $.ajax({

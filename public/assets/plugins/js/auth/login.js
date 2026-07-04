@@ -116,6 +116,8 @@ $(document).ready(function () {
                 |--------------------------------------------------------------------------
                 */
                 const submitBtn = $(form).find("button[type='submit']");
+                const originalHtml = submitBtn.html();
+
                 const alertBox = $("#loginAlert");
 
                 /*
@@ -130,7 +132,10 @@ $(document).ready(function () {
                 | Button Loading State
                 |--------------------------------------------------------------------------
                 */
-                submitBtn.prop("disabled", true);                            
+                submitBtn.prop("disabled", true).html(`
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Authenticating...
+                `);                         
                 /*
                 |--------------------------------------------------------------------------
                 | Encrypt Form Data
@@ -140,22 +145,16 @@ $(document).ready(function () {
                encryptedData.device_fingerprint = DeviceFingerprint.generate();            
                 /*
                 |--------------------------------------------------------------------------
-                | Append CSRF Token
-                |--------------------------------------------------------------------------
-                */
-                // encryptedData[APP_CONFIG.CSRF.NAME] = APP_CONFIG.CSRF.HASH;
-                /*
-                |--------------------------------------------------------------------------
                 | AJAX Authentication Request
                 |--------------------------------------------------------------------------
                 */
-                console.log(APP_CONFIG.CSRF.HASH);
-                
                 $.ajax({
                     url: $(form).attr("action"),
                     type: $(form).attr("method"),
                     dataType: "json",
                     data: encryptedData,
+                    processData: false,
+                    contentType: false,
                     headers: {
                         'X-CSRF-TOKEN': APP_CONFIG.CSRF.HASH
                     },
@@ -171,10 +170,7 @@ $(document).ready(function () {
                         |--------------------------------------------------------------------------
                         */
                         if (response.csrfHash) {
-                             APP_CONFIG.setCSRFHash(
-                                response.csrfHash
-                            );
-                            $('meta[name="csrf-hash"]').attr("content",response.csrfHash);
+                            APP_CONFIG.setCSRFHash(response.csrfHash);                            
                         }
                         /*
                         |--------------------------------------------------------------------------
@@ -290,8 +286,17 @@ $(document).ready(function () {
                     | Request Complete
                     |--------------------------------------------------------------------------
                     */
-                    complete: function () {
-                        submitBtn.prop("disabled",false);                        
+                    complete: function (xhr) {
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Reset Button State
+                        |--------------------------------------------------------------------------
+                        */
+                       if (xhr.responseJSON && xhr.responseJSON.csrfHash) {
+                            APP_CONFIG.setCSRFHash(xhr.responseJSON.csrfHash);
+                            $('meta[name="csrf-hash"]').attr("content", xhr.responseJSON.csrfHash);
+                        }
+                        submitBtn.prop("disabled", false).html(originalHtml);
                     }
                 });
             } catch (error) {

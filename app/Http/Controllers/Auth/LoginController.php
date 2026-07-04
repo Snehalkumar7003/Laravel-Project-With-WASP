@@ -45,7 +45,8 @@ class LoginController extends Controller{
             );
 
             if ($validator->fails()) { 
-                return response()->json([ 
+                return response()->json([
+                    'csrf_token' => csrf_token(), 
                     'success' => 0, 
                     'message' => $validator->errors()->first() 
                 ], 422); 
@@ -62,7 +63,8 @@ class LoginController extends Controller{
                         ->count(); 
 
             if ($failedAttempts >= 3) { 
-                return response()->json([ 
+                return response()->json([
+                    'csrf_token' => csrf_token(), 
                     'success' => 0, 
                     'message' => 'Account locked. Please try again after 1 hour.' 
                 ], 423); 
@@ -86,6 +88,7 @@ class LoginController extends Controller{
                 ]);
 
                 return response()->json([
+                    'csrf_token' => csrf_token(),
                     'success' => 0,
                     'message' => 'Invalid email or password'
                 ],401);
@@ -113,7 +116,8 @@ class LoginController extends Controller{
                 ]);
                 $remainingAttempts = max(0, 3 - ($failedAttempts + 1));
 
-                return response()->json([ 
+                return response()->json([
+                    'csrf_token' => csrf_token(), 
                     'success' => 0, 
                     'message' => $remainingAttempts > 0 
                         ? "Invalid email or password. {$remainingAttempts} attempt(s) remaining." 
@@ -162,6 +166,7 @@ class LoginController extends Controller{
                 'pending_device_fingerprint'    => $request->device_fingerprint,
                 'username'                      => $user->username, 
                 'email'                         => $user->email, 
+                'profile_photo'                 => $user->profile_photo,
                 'role_name'                     => $role->role_name             
             ]);
 
@@ -186,7 +191,8 @@ class LoginController extends Controller{
             Log::error( 
                 'Login Error : ' . $e->getMessage() 
             ); 
-            return response()->json([ 
+            return response()->json([
+                'csrf_token' => csrf_token(), 
                 'success' => 0, 
                 'message' => 'Unable to process login request' 
             ], 500);

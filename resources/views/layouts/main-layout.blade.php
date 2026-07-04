@@ -5,25 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="csrf-token-name" content="X-CSRF-TOKEN">
     <meta name="csrf-token-hash" content="{{ csrf_token() }}">
     <meta name="app-base-url" content="{{ url('/') }}">
-
     <title>@yield('title', config('app.name'))</title>
-
     <link rel="icon" type="image/svg+xml" href="{{ asset('img/logo.svg') }}">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-
     <link href="{{ asset('assets/css/theme.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/app.js') }}"></script>
 </head>
 

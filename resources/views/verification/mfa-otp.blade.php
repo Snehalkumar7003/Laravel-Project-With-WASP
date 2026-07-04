@@ -43,7 +43,7 @@
         </p>
         
         <div id="alertBox" class="d-none"></div>
-        <a href="login.html" class="d-inline-flex align-items-center gap-2 text-muted text-decoration-none">
+        <a href="{{ route('logout') }}" class="d-inline-flex align-items-center gap-2 text-muted text-decoration-none">
           <i data-lucide="arrow-left" class="lucide-sm"></i> Back to Login
         </a>
       </div>

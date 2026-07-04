@@ -2289,7 +2289,8 @@ html.dark .bg-slate-50 { background: var(--slate-900); }
 .bg-pink-500 { background: #ec4899; }
 .bg-teal-500 { background: #14b8a6; }
 .bg-indigo-500 { background: #6366f1; }
-
+.bg-green-500 { background: #22c55e; }
+.bg-blue-500 {background: #3b82f6;}
 
 /* ===== React/Tailwind Compatibility Layer =====
    Mirrors Tailwind utility classes used by Liner React so HTML
@@ -3403,7 +3404,7 @@ textarea.input { font-family: inherit; }
 .acc-stat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .acc-sec-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-.acc-tabs { display: inline-flex; gap: 4px; margin-bottom: 24px; background: #f1f5f9; padding: 4px; border-radius: 12px; }
+.acc-tabs { display: inline-flex; gap: 4px; background: #f1f5f9; border-radius: 12px; }
 .acc-tab { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; background: transparent; color: #64748b; border: 0; cursor: pointer; transition: all .15s; }
 .acc-tab:hover { color: #334155; }
 .acc-tab-active { background: #fff; color: rgb(var(--p-600)); box-shadow: 0 1px 2px rgba(0,0,0,.06); }

@@ -13,7 +13,7 @@
                 <div class="mb-3">
                     <label class="form-label small fw-medium">Current Password <span class="text-danger">*</span></label>
                     <div class="input-eye-wrap">
-                        <input type="password" data-encrypt="true" name="password" id="pwd" class="form-control" placeholder="••••••••">
+                        <input type="password" data-encrypt="true" name="password" id="pwd" class="form-control" placeholder="••••••••" autocomplete="current-password">
                         <button type="button"  class="input-eye-btn toggle-password">
                             <i data-lucide="eye" class="lucide-sm"></i>
                         </button>
@@ -22,7 +22,7 @@
                 <div class="mb-3">
                     <label class="form-label small fw-medium">New Password <span class="text-danger">*</span></label>
                     <div class="input-eye-wrap">
-                        <input type="password" data-encrypt="true" name="new_password" id="new_password" class="form-control" placeholder="••••••••">
+                        <input type="password" data-encrypt="true" name="new_password" id="new_password" class="form-control" placeholder="••••••••" autocomplete="new-password">
                         <button type="button"  class="input-eye-btn toggle-password">
                             <i data-lucide="eye" class="lucide-sm"></i>
                         </button>
@@ -31,7 +31,7 @@
                 <div class="mb-3">
                     <label class="form-label small fw-medium">Confirm Password <span class="text-danger">*</span></label>
                     <div class="input-eye-wrap">
-                        <input type="password" data-encrypt="true" name="confirm_password" id="confirm_password" class="form-control" placeholder="••••••••">
+                        <input type="password" data-encrypt="true" name="confirm_password" id="confirm_password" class="form-control" placeholder="••••••••" autocomplete="confirm-password">
                         <button type="button"  class="input-eye-btn toggle-password">
                             <i data-lucide="eye" class="lucide-sm"></i>
                         </button>
@@ -40,7 +40,7 @@
                 <p id="otp-error" class="text-center text-xs text-danger d-none"></p>
                 <button id="changePasswordBtn" type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2 py-2">
                     <i data-lucide="shield-check" class="lucide-sm"></i>
-                    <span id="otp-btn-text">Change Password</span>
+                    <span id="otp-btn-text">Update Password</span>
                 </button>
                 <div class="mb-3">
                     <div id="changePasswordAlert" class="d-none"></div>

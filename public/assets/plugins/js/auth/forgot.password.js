@@ -69,7 +69,7 @@ $(function () {
                     type: "POST",
                     dataType: "json",
                     headers: {
-                        "X-CSRF-TOKEN": APP_CONFIG.CSRF.HASH
+                        [APP_CONFIG.CSRF.NAME]: APP_CONFIG.CSRF.HASH
                     },
                     data: encryptedData,
                     success: function (response) {
@@ -203,7 +203,11 @@ $(function () {
                             lucide.createIcons();
                         }
                     },
-                    complete: function () {
+                    complete: function (xhr) {
+                        if (xhr.responseJSON && xhr.responseJSON.csrfHash) {
+                            APP_CONFIG.setCSRFHash(xhr.responseJSON.csrfHash);
+                            $('meta[name="csrf-hash"]').attr("content", xhr.responseJSON.csrfHash);
+                        }
                         submitBtn.prop("disabled", false);
                         buttonText.text("Send Reset Link");
                     }

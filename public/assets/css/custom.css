@@ -28,7 +28,8 @@
 
 /* Readonly input */
 .form-control:read-only,
-.form-select:disabled {
+.form-select:disabled,
+input[readonly] {
     background-color: #f8f9fa;
     color: #495057;
     border-color: #ced4da;
@@ -39,4 +40,62 @@
 /* Placeholder color */
 .form-control:read-only::placeholder {
     color: #6c757d;
+}
+
+.input1{
+    padding: 10px 30px !important;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Activity Timeline
+|--------------------------------------------------------------------------
+*/
+
+.activity-timeline{
+
+    height:500px;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding-right:8px;
+
+    scroll-behavior:smooth;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Scrollbar
+|--------------------------------------------------------------------------
+*/
+
+.activity-timeline::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.activity-timeline::-webkit-scrollbar-track{
+
+    background:#f1f5f9;
+
+    border-radius:10px;
+
+}
+
+.activity-timeline::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:10px;
+
+}
+
+.activity-timeline::-webkit-scrollbar-thumb:hover{
+
+    background:#94a3b8;
+
 }

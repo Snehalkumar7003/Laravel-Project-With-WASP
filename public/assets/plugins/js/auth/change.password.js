@@ -115,8 +115,14 @@ $(document).ready(function () {
         submitHandler: async function (form, event) {
             event.preventDefault();
             const submitBtn = $("#changePasswordBtn");
+            const originalHtml = submitBtn.html();
+
             const alertBox = $("#changePasswordAlert");
-            submitBtn.prop("disabled", true);
+            submitBtn.prop("disabled", true).html(`
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Updating...
+            `);   
+            
             alertBox.html("");
             try {
                 const encryptedData = await SecurityManager.encryptFormBySelector("#changePasswordForm");
@@ -126,8 +132,10 @@ $(document).ready(function () {
                     url: $(form).attr("action"),
                     type: "POST",
                     dataType: "json",
+                    processData: false,
+                    contentType: false,
                     headers: {
-                        "X-CSRF-TOKEN": APP_CONFIG.CSRF.HASH
+                        [APP_CONFIG.CSRF.NAME]: APP_CONFIG.CSRF.HASH
                     },
                     data: encryptedData,
                     success: function (response) {
@@ -261,12 +269,17 @@ $(document).ready(function () {
                             lucide.createIcons();
                         }
                     },
-                    complete: function () {
-                        submitBtn.prop("disabled", false);
+                    complete: function (xhr) {
+                        if (xhr.responseJSON && xhr.responseJSON.csrfHash) {
+                            APP_CONFIG.setCSRFHash(xhr.responseJSON.csrfHash);
+                            $('meta[name="csrf-hash"]').attr("content", xhr.responseJSON.csrfHash);
+                        }
+
+                        submitBtn.prop("disabled", false).html(originalHtml);
                     }
                 });
-            } catch (e) {
-                console.error(error);
+            } catch (error) {
+                // console.error(error);
                  alertBox.removeClass("d-none").html(`
                     <div class="flex items-start gap-3 p-4 rounded-xl text-sm bg-red-50 border border-red-200 text-red-800">
                         <i data-lucide="x-circle" class="lucide-md shrink-0 mt-0-5 text-red-500"></i>
@@ -386,10 +399,10 @@ function updateRule(selector, valid){
     const row=$(selector);
     row.removeClass("valid invalid");
 
-    console.log(selector);
-    console.log(row.length);
-    console.log(row.find(".rule-fail").length);
-    console.log(row.find(".rule-pass").length);
+    // console.log(selector);
+    // console.log(row.length);
+    // console.log(row.find(".rule-fail").length);
+    // console.log(row.find(".rule-pass").length);
     
     if(valid){
         row.addClass("valid");

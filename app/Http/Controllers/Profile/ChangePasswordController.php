@@ -23,6 +23,8 @@ class ChangePasswordController extends Controller
 
     public function update(Request $request){
         try{
+            //  dd('Controller reached');
+             
             DB::beginTransaction();
             /*
             |--------------------------------------------------------------------------
@@ -56,6 +58,7 @@ class ChangePasswordController extends Controller
             );
             if($validator->fails()){
                 return response()->json([
+                    'csrfHash' => csrf_token(),
                     'success'   =>  0,
                     'message'   =>  $validator
                         ->errors()
@@ -71,6 +74,7 @@ class ChangePasswordController extends Controller
             $user   =   MstUserModel::find(session('user_id'));
             if(!$user){
                 return response()->json([
+                    'csrfHash' => csrf_token(),
                     'success'=>0,
                     'message'=>'User not found.'
                 ],404);
@@ -83,6 +87,7 @@ class ChangePasswordController extends Controller
             */
             if(!Hash::check($currentPassword,$user->password)){
                 return response()->json([
+                    'csrfHash' => csrf_token(),
                     'success'=>0,
                     'message'=>'Current password is incorrect.'
                 ],422);
@@ -95,6 +100,7 @@ class ChangePasswordController extends Controller
             */
             if(Hash::check($newPassword,$user->password)){
                 return response()->json([
+                    'csrfHash' => csrf_token(),
                     'success'=>0,
                     'message'=>'New password cannot be same as current password.'
                 ],422);
@@ -114,6 +120,7 @@ class ChangePasswordController extends Controller
                 foreach($history as $item){
                     if(Hash::check($newPassword,$item->password)){
                         return response()->json([
+                            'csrfHash' => csrf_token(),
                             'success'=>0,
                             'message'=>'You cannot reuse your last 3 passwords.'
                         ],422);
@@ -206,6 +213,7 @@ class ChangePasswordController extends Controller
             |--------------------------------------------------------------------------
             */
             return response()->json([
+                'csrfHash' => csrf_token(),
                 'success' => 1,
                 'message' => 'Password changed successfully. Please login again.',
                 'redirect' => route('login')
@@ -216,6 +224,7 @@ class ChangePasswordController extends Controller
             Log::error('Change Password Error : '.$e->getMessage());
 
             return response()->json([
+                'csrfHash' => csrf_token(),
                 'success'=>0,
                 'message'=>'Unable to change password.'
             ],500);

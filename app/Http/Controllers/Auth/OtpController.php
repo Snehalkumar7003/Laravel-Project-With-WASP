@@ -359,7 +359,8 @@ class OtpController extends Controller{
                 'role_name'             => $role?->role_name,
                 'is_logged_in'          => true,
                 'is_first_login'        => $user->is_first_login,
-                'must_change_password'  => $mustChangePassword
+                'must_change_password'  => $mustChangePassword,
+                'profile_photo'         => $user->profile_photo
             ]);
 
             /*
